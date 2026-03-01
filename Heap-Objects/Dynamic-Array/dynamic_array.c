@@ -21,9 +21,19 @@ void append(obj_t *obj, obj_t *new_obj)
         arr->capacity = 2 * arr->capacity;
     }
     arr->objects[arr->size++] = new_obj;
-    increment_refCount(new_obj);
+    // increment_refCount(new_obj);
 
     return;
+}
+
+obj_t *pop(obj_t *obj)
+{
+    if (obj == NULL || obj->kind != ARRAY)
+        return NULL;
+    darray *arr = obj->data.a_arr;
+    arr->size--;
+    // decrement_refCount(arr->objects[arr->size]);
+    return arr->objects[arr->size];
 }
 
 obj_t *get_array_obj(obj_t *obj, unsigned long index)
@@ -38,7 +48,7 @@ obj_t *get_array_obj(obj_t *obj, unsigned long index)
         return NULL;
     }
     obj_t *return_obj = arr->objects[index];
-    increment_refCount(return_obj);
+    // increment_refCount(return_obj);
 
     return return_obj;
 }
@@ -54,10 +64,10 @@ void set_array_obj(obj_t *obj, unsigned long index, obj_t *new_obj)
     {
         return;
     }
-    obj_t *old_obj = arr->objects[index];
-    decrement_refCount(old_obj);
+    // obj_t *old_obj = arr->objects[index];
+    // decrement_refCount(old_obj);
     arr->objects[index] = new_obj;
-    increment_refCount(new_obj);
+    // increment_refCount(new_obj);
 
     return;
 }
